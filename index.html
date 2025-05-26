@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晒单信息生成器</title>
+    <link rel="stylesheet" href="./show.css">
+ 
+</head>
+<body>
+    <div class="container">
+        <div class="header-icon">📱</div>
+        <div class="header-container">
+            <button class="settings-btn" onclick="showPasswordModal()">设置</button>
+            <h1>晒单信息生成器</h1>    
+        </div>
+        
+        <div class="form-container">
+            <div class="form-section">
+                <div class="form-section-title">基本信息</div>
+                <div class="form-group grid-company-row">
+                    <div class="select-group">
+                        <label for="company">分公司：</label>
+                        <select id="company" onchange="updateGridOptions()">
+                            <option value="">请选择分公司</option>
+                            <option value="江城分公司">江城分公司</option>
+                            <option value="阳春分公司">阳春分公司</option>
+                            <option value="阳东分公司">阳东分公司</option>
+                            <option value="阳西分公司">阳西分公司</option>
+                            <option value="南区分公司">南区分公司</option>
+                        </select>
+                        <div class="error-message" id="company-error">请选择分公司</div>
+                    </div>
+                    
+                    <div class="select-group">
+                        <label for="gridName">网格名称：</label>
+                        <select id="gridName">
+                            <option value="">请先选择分公司</option>
+                        </select>
+                        <div class="error-message" id="gridName-error">请选择网格名称</div>
+                    </div>
+                </div>
+                <div class="form-group grid-company-row">
+                    <div class="select-group">
+                        <label for="scenarioType">场景选择：</label>
+                        <select id="scenarioType">
+                            <option value="">请选择场景类型</option>
+                            <option value="主题场景">主题场景</option>
+                            <option value="指定清单场景">指定清单场景</option>
+                        </select>
+                        <div class="error-message" id="scenarioType-error">请选择场景类型</div>
+                    </div>
+                    
+                    <div class="select-group" id="themeScenarioGroup" style="display: none;">
+                        <label for="themeScenario">主题场景类型：</label>
+                        <select id="themeScenario">
+                            <option value="">请选择主题场景类型</option>
+                            <option value="大集团">大集团</option>
+                            <option value="酒店">酒店</option>
+                            <option value="幼儿园">幼儿园</option>
+                            <option value="商圈">商圈</option>
+                            <option value="大型社区">大型社区</option>
+                        </select>
+                        <div class="error-message" id="themeScenario-error">请选择主题场景类型</div>
+                    </div>
+                    
+                    <div class="select-group" id="listScenarioGroup" style="display: none;">
+                        <label for="listScenario">指定清单场景类型：</label>
+                        <select id="listScenario">
+                            <option value="">请选择指定清单场景类型</option>
+                            <option value="重点小区">重点小区</option>
+                            <option value="漫入社区">漫入社区</option>
+                            <option value="重点集团">重点集团</option>
+                            <option value="百万集团">百万集团</option>
+                            <option value="乡村">乡村</option>
+                        </select>
+                        <div class="error-message" id="listScenario-error">请选择指定清单场景类型</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="activityType">活动类型：</label>
+                    <select id="activityType">
+                        <option value="促销">促销</option>
+                        <option value="拜访">拜访</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="time">促销/拜访时间：</label>
+                    <input type="date" id="time">
+                    <div class="error-message" id="time-error">请选择时间</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">促销/拜访地点：</label>
+                    <input type="text" id="location" placeholder="例如：潭水安芬娜社区">
+                    <div class="error-message" id="location-error">请输入地点</div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="form-section-title">人员信息</div>
+                <div class="form-group">
+                    <label>促销/拜访人员：</label>
+                    <div class="personnel-container">
+                        <select id="personPosition">
+                            <option value="网格长">网格长</option>
+                            <option value="网格经理">网格经理</option>
+                            <option value="领导">领导</option>
+                        </select>
+                        <input type="text" id="personName" placeholder="请输入人员姓名">
+                        <button type="button" class="add-btn" id="addPersonBtn">添加</button>
+                    </div>
+                    <div id="personnelList" class="personnel-list" style="display: none;">
+                        <!-- 人员列表将在这里动态生成 -->
+                    </div>
+                    <div class="error-message" id="personnel-error">请添加至少一名人员</div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="form-section-title">业务信息</div>
+                <div class="form-group">
+                    <label for="business">促销/拜访成交业务：</label>
+                    <input type="text" id="business" placeholder="例如：劳动节促活动、家庭宽带、监控、手机等">
+                    <div class="error-message" id="business-error">请输入成交业务</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="effect">促销/拜访效果：</label>
+                    <textarea id="effect" rows="3" placeholder="例如：五一期间在安芬娜社区对群众开展促销活动，对云电脑，ai手机、体锻、家庭宽带等进行活动推广。"></textarea>
+                    <div class="error-message" id="effect-error">请输入促销/拜访效果</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="isProperty">是否物业类集团：</label>
+                    <select id="isProperty">
+                        <option value="">请选择</option>
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                    </select>
+                    <div class="error-message" id="isProperty-error">如果走访地点包含物业，选填：是</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="isEnterpriseGroup">是否企宽集团：</label>
+                    <select id="isEnterpriseGroup">
+                        <option value="">请选择</option>
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                    </select>
+                    <div class="error-message" id="isEnterpriseGroup-error">如果走访地点包含企业集团，选填：是</div>
+                </div>
+            </div>
+            
+            <button id="generateBtn">生成晒单信息</button>
+        </div>
+    </div>
+    
+    <div id="resultContainer" class="container result" style="display: none;">
+        <div class="result-header">生成的晒单信息</div>
+        <div id="resultText"></div>
+        <button id="copyBtn" class="copy-btn">复制到剪贴板</button>
+    </div>
+    
+    <div class="footer">
+        © 2025 晒单信息生成器 - 让晒单更简单
+    </div>
+    
+    <!-- 错误提示模态框 -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                表单验证失败
+            </div>
+            <div class="modal-body" id="errorModalBody">
+                请填写所有必填项
+            </div>
+            <div class="modal-footer">
+                <button class="close-modal" id="closeModal">确定</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 密码验证模态框 -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                权限验证
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="passwordInput">请输入权限密码：</label>
+                    <input type="password" id="passwordInput" class="password-input">
+                    <div class="error-message" id="password-error" style="display: none;">密码错误，无权限访问</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="close-modal" id="cancelPassword">取消</button>
+                <button class="confirm-btn" id="confirmPassword">确认</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./show.js"> </script>
+</body>
+</html>

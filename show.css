@@ -1,0 +1,401 @@
+
+body {
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f8ff;
+    background-image: linear-gradient(to bottom right, #e6f2ff, #f0f8ff);
+    color: #333;
+    line-height: 1.6;
+}
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+/* 修改h1样式，使下划线占满表单 */
+h1 {
+    color: #0066cc;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #e6f2ff;
+    padding-bottom: 15px;
+    width: 100%; /* 确保宽度占满 */
+}
+
+/* 修改设置按钮样式，适应新位置 */
+.settings-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 8px;
+}
+
+.settings-btn {
+    background-color: #6c757d;
+    color: white;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0;
+    height: 38px; /* 与select元素高度一致 */
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #0066cc;
+}
+input[type="text"], textarea, input[type="date"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cce0ff;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #f9fcff;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+input[type="text"]:focus, textarea:focus, input[type="date"]:focus, select:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    margin: 25px auto;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+button:hover {
+    background-color: #0055aa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+.result {
+    background-color: white;
+    border: 1px solid #cce0ff;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+    white-space: pre-line;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.copy-btn {
+    background-color: #28a745;
+    margin-top: 15px;
+}
+.copy-btn:hover {
+    background-color: #218838;
+}
+.activity-type-container {
+    display: flex;
+    gap: 10px;
+}
+.activity-type-container input {
+    flex: 2;
+}
+.activity-type-container select {
+    flex: 1;
+}
+.personnel-container {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    width: 100%; /* 使宽度与其他输入项一致 */
+}
+.personnel-container select {
+    flex: 1;
+    height: 38px; /* 减小高度 */
+}
+.personnel-container input {
+    flex: 2;
+    height: 38px; /* 减小高度 */
+}
+.add-btn {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px; /* 减小按钮内边距 */
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    height: 38px; /* 设置与输入框相同的高度 */
+    margin: 0; /* 移除按钮的外边距 */
+}
+.add-btn:hover {
+    background-color: #0055aa;
+}
+.header-icon {
+    text-align: center;
+   
+    font-size: 40px;
+    color: #0066cc;
+}
+.result-header {
+    font-weight: bold;
+    color: #0066cc;
+    margin-bottom: 10px;
+    font-size: 18px;
+    border-bottom: 1px solid #e6f2ff;
+    padding-bottom: 8px;
+}
+.form-section {
+    border-left: 3px solid #0066cc;
+    padding-left: 15px;
+    margin-bottom: 25px;
+}
+.form-section-title {
+    font-weight: bold;
+    color: #0066cc;
+    margin-bottom: 15px;
+}
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #666;
+    font-size: 12px;
+}
+ .error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+.input-error {
+    border-color: #dc3545 !important;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    position: relative;
+}
+
+.modal-header {
+    color: #0066cc;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 20px;
+    border-bottom: 2px solid #e6f2ff;
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.modal-body {
+    margin-bottom: 25px;
+}
+
+.modal-body .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-body label {
+    margin-bottom: 12px;
+    color: #333;
+    font-size: 16px;
+}
+
+.modal-body input[type="password"] {
+    width: 80%;
+    padding: 10px 15px;
+    border: 2px solid #cce0ff;
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.modal-body input[type="password"]:focus {
+    border-color: #0066cc;
+    box-shadow: 0 0 10px rgba(0, 102, 204, 0.2);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+.close-modal, .confirm-btn {
+    flex: 0 0 120px;
+    height: 40px;
+    padding: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    line-height: 40px;
+}
+
+.close-modal {
+    background-color: #6c757d;
+    color: white;
+}
+
+.confirm-btn {
+    background-color: #0066cc;
+    color: white;
+}
+
+.close-modal:hover, .confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.close-modal:hover {
+    background-color: #5a6268;
+}
+
+.confirm-btn:hover {
+    background-color: #0055aa;
+}
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+.modal-footer {
+    text-align: right;
+}
+.close-modal {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0;
+}
+.close-modal:hover {
+    background-color: #5a6268;
+}
+/* 添加到CSS文件中 */
+.grid-company-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.select-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.select-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.select-group select {
+    width: 100%;
+}
+
+/* 在小屏幕上改为垂直布局 */
+@media (max-width: 768px) {
+    .grid-company-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+.settings-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #6c757d;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+/* 人员列表样式 */
+.personnel-list {
+    border: 1px solid #cce0ff;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f9fcff;
+}
+.personnel-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 8px; /* 减小上下内边距 */
+    border-bottom: 1px solid #e6f2ff;
+    height: 32px; /* 固定高度 */
+}
+.personnel-item:last-child {
+    border-bottom: none;
+}
+.personnel-item span {
+    flex: 1;
+}
+.remove-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+    height: 24px; /* 固定高度 */
+    width: 50px; /* 固定宽度 */
+    text-align: center;
+    line-height: 18px;
+    margin: 0;
+}
+.remove-btn:hover {
+    background-color: #c82333;
+}
