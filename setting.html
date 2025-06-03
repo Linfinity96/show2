@@ -91,6 +91,31 @@
             color: #0066cc;
             margin-bottom: 10px;
         }
+        /* 新增样式 */
+        .scenario-type-container {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 6px;
+            border: 1px solid #cce0ff;
+        }
+        .scenario-type-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .scenario-type-row label {
+            width: 120px;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .scenario-type-row input {
+            flex: 1;
+            height: 34px;
+            padding: 5px 10px;
+            border: 1px solid #cce0ff;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -99,6 +124,19 @@
             <button class="back-btn" onclick="window.location.href='index.html'">返回主页</button>
             <h1>场景类型设置</h1>
            
+        </div>
+        
+        <!-- 新增场景类型名称设置区域 -->
+        <div class="scenario-type-container">
+            <h2>场景类型名称设置</h2>
+            <div class="scenario-type-row">
+                <label for="themeScenarioTypeName">主题场景名称：</label>
+                <input type="text" id="themeScenarioTypeName" value="主题场景">
+            </div>
+            <div class="scenario-type-row">
+                <label for="listScenarioTypeName">清单场景名称：</label>
+                <input type="text" id="listScenarioTypeName" value="主题外场景">
+            </div>
         </div>
         
         <div class="scenario-container">
@@ -113,12 +151,12 @@
         </div>
         
         <div class="scenario-container">
-            <h2>指定清单场景类型</h2>
+            <h2 id="listScenarioHeader">主题外场景类型</h2>
             <div id="listScenarioList" class="scenario-list">
                 <!-- 指定清单场景列表将在这里动态生成 -->
             </div>
             <div class="add-scenario-container">
-                <input type="text" id="newListScenario" placeholder="输入新的指定清单场景类型">
+                <input type="text" id="newListScenario" placeholder="输入新的主题外场景类型">
                 <button class="add-btn" id="addListScenarioBtn">添加</button>
             </div>
         </div>
@@ -170,6 +208,15 @@
         let listScenarios = JSON.parse(localStorage.getItem('listScenarios')) || [
             "重点小区", "漫入社区", "重点集团", "百万集团", "乡村"
         ];
+        
+        // 加载场景类型名称
+        let themeScenarioTypeName = localStorage.getItem('themeScenarioTypeName') || "主题场景";
+        let listScenarioTypeName = localStorage.getItem('listScenarioTypeName') || "主题外场景";
+        
+        // 初始化场景类型名称输入框
+        document.getElementById('themeScenarioTypeName').value = themeScenarioTypeName;
+        document.getElementById('listScenarioTypeName').value = listScenarioTypeName;
+        document.getElementById('listScenarioHeader').textContent = listScenarioTypeName + "类型";
         
         // 更新主题场景列表显示
         function updateThemeScenarioList() {
@@ -314,8 +361,17 @@
             
             if (passwordHash === correctPasswordHash) {
                 // 密码正确，保存设置
+                // 保存场景类型名称
+                themeScenarioTypeName = document.getElementById('themeScenarioTypeName').value.trim() || "主题场景";
+                listScenarioTypeName = document.getElementById('listScenarioTypeName').value.trim() || "主题外场景";
+                
+                localStorage.setItem('themeScenarioTypeName', themeScenarioTypeName);
+                localStorage.setItem('listScenarioTypeName', listScenarioTypeName);
+                
+                // 保存场景列表
                 localStorage.setItem('themeScenarios', JSON.stringify(themeScenarios));
                 localStorage.setItem('listScenarios', JSON.stringify(listScenarios));
+                
                 document.getElementById('passwordModal').style.display = 'none';
                 showModal('设置已保存');
             } else {

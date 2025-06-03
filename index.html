@@ -204,5 +204,44 @@
     </div>
     
     <script src="./show.js"> </script>
+<script>
+    // 加载场景类型名称
+    document.addEventListener('DOMContentLoaded', function() {
+        // 获取场景类型名称
+        const themeScenarioTypeName = localStorage.getItem('themeScenarioTypeName') || "主题场景";
+        const listScenarioTypeName = localStorage.getItem('listScenarioTypeName') || "主题外场景";
+        
+        // 更新场景类型选择器的选项文本
+        const scenarioTypeSelect = document.getElementById('scenarioType');
+        if (scenarioTypeSelect && scenarioTypeSelect.options.length >= 3) {
+            scenarioTypeSelect.options[1].textContent = themeScenarioTypeName;
+            scenarioTypeSelect.options[1].value = themeScenarioTypeName;
+            scenarioTypeSelect.options[2].textContent = listScenarioTypeName;
+            scenarioTypeSelect.options[2].value = listScenarioTypeName;
+        }
+        
+        // 更新标签文本
+        const themeScenarioLabel = document.querySelector('label[for="themeScenario"]');
+        if (themeScenarioLabel) {
+            themeScenarioLabel.textContent = themeScenarioTypeName + "类型：";
+        }
+        
+        const listScenarioLabel = document.querySelector('label[for="listScenario"]');
+        if (listScenarioLabel) {
+            listScenarioLabel.textContent = listScenarioTypeName + "类型：";
+        }
+        
+        // 更新错误提示文本
+        const themeScenarioError = document.getElementById('themeScenario-error');
+        if (themeScenarioError) {
+            themeScenarioError.textContent = "请选择" + themeScenarioTypeName + "类型";
+        }
+        
+        const listScenarioError = document.getElementById('listScenario-error');
+        if (listScenarioError) {
+            listScenarioError.textContent = "请选择" + listScenarioTypeName + "类型";
+        }
+    });
+</script>
 </body>
 </html>
