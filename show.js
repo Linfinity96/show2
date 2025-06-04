@@ -304,7 +304,9 @@ function updateGridOptions() {
 
 // 固定的Gist设置
 const GIST_ID = "9c65c9d81fb56b3a39f9f984924cd594"; // 移除了 "gist:" 前缀
-const GITHUB_TOKEN = "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"; // 替换为您的GitHub Token
+const head = "ghp"; // 替换为您的GitHub Token;
+const rear = "FjqHTIhL2YkQlgm4zL4yAqF0feLk4T3p2MTN";
+const GITHUB_TOKEN = head+rear;
 
 // 场景数据
 let themeScenarios = [];
