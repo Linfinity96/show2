@@ -247,6 +247,26 @@ function validateForm() {
         hideError('effect');
     }
 
+    // 验证是否物业类集团
+    const isProperty = document.getElementById('isProperty').value;
+    if (!isProperty) {
+        showError('isProperty', '请选择是否物业类集团');
+        isValid = false;
+        emptyFields.push('是否物业类集团');
+    } else {
+        hideError('isProperty');
+    }
+
+    // 验证是否企宽集团
+    const isEnterpriseGroup = document.getElementById('isEnterpriseGroup').value;
+    if (!isEnterpriseGroup) {
+        showError('isEnterpriseGroup', '请选择是否企宽集团');
+        isValid = false;
+        emptyFields.push('是否企宽集团');
+    } else {
+        hideError('isEnterpriseGroup');
+    }
+
     // 如果验证失败，显示模态框
     if (!isValid) {
         const message = `以下项目未填写：\n${emptyFields.join('\n')}`;
@@ -306,7 +326,7 @@ function updateGridOptions() {
 const GIST_ID = "cf2eb2ef1416b0640660f364cd180bd2"; // 移除了 "gist:" 前缀
 const head = "ghp_"; // 替换为您的GitHub Token;
 const rear = "FjqHTIhL2YkQlgm4zL4yAqF0feLk4T3p2MTN";
-const GITHUB_TOKEN = head+rear;
+const GITHUB_TOKEN = head + rear;
 
 // 场景数据
 let themeScenarios = [];
@@ -480,3 +500,101 @@ document.getElementById('passwordInput').addEventListener('keypress', function (
         document.getElementById('confirmPassword').click();
     }
 });
+
+// 生成晒单信息按钮点击事件
+document.getElementById('generateBtn').addEventListener('click', function () {
+    // 验证表单
+    if (!validateForm()) {
+        return;
+    }
+
+    // 获取表单数据
+    const company = document.getElementById('company').value;
+    const gridName = document.getElementById('gridName').value;
+    const scenarioType = document.getElementById('scenarioType').value;
+
+    // 根据场景类型获取具体场景
+    let scenario = '';
+    if (scenarioType === '主题场景') {
+        scenario = document.getElementById('themeScenario').value;
+    } else if (scenarioType === '主题外常规场景') {
+        scenario = document.getElementById('listScenario').value;
+    }
+
+    const activityType = document.getElementById('activityType').value;
+    const time = document.getElementById('time').value;
+    const location = document.getElementById('location').value;
+    const business = document.getElementById('business').value;
+    const effect = document.getElementById('effect').value;
+    const isProperty = document.getElementById('isProperty').value;
+    const isEnterpriseGroup = document.getElementById('isEnterpriseGroup').value;
+
+    // 格式化日期
+    const date = new Date(time);
+    const formattedDate = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+
+    // 生成人员列表文本
+    let personnelText = '';
+    personnelArray.forEach((person, index) => {
+        personnelText += `${person.position}${person.name}`;
+        if (index < personnelArray.length - 1) {
+            personnelText += '、';
+        }
+    });
+
+    // 生成晒单信息（按照新模板）
+    let resultText = `【${gridName}-${scenarioType}：${scenario} ${activityType}】\n`;
+    resultText += `1、${activityType}时间：${formattedDate}\n`;
+    resultText += `2、${activityType}地点：${location}\n`;
+    resultText += `3、${activityType}人员：${personnelText}\n`;
+    resultText += `4、${activityType}成交业务：${business}\n`;
+    resultText += `5、${activityType}效果：${effect}\n`;
+    resultText += `6、走访集团是否物业类：${isProperty}\n`;
+    resultText += `7、走访集团是否企宽集团：${isEnterpriseGroup}`;
+
+    // 显示结果
+    document.getElementById('resultText').textContent = resultText;
+    document.getElementById('resultContainer').style.display = 'block';
+});
+
+// 复制到剪贴板按钮点击事件
+document.getElementById('copyBtn').addEventListener('click', function () {
+    const resultText = document.getElementById('resultText').textContent;
+
+    // 使用现代剪贴板API
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(resultText)
+            .then(() => {
+                alert('已复制到剪贴板');
+            })
+            .catch(err => {
+                console.error('复制失败:', err);
+                fallbackCopyToClipboard(resultText);
+            });
+    } else {
+        fallbackCopyToClipboard(resultText);
+    }
+});
+
+// 后备复制方法
+function fallbackCopyToClipboard(text) {
+    // 创建临时文本区域
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            alert('已复制到剪贴板');
+        } else {
+            alert('复制失败，请手动复制');
+        }
+    } catch (err) {
+        console.error('复制失败:', err);
+        alert('复制失败，请手动复制');
+    }
+
+    document.body.removeChild(textArea);
+}
