@@ -250,7 +250,7 @@ function validateForm() {
     // 验证是否物业类集团
     const isProperty = document.getElementById('isProperty').value;
     if (!isProperty) {
-        showError('isProperty', '请选择是否物业类集团');
+        showError('isProperty', '如果走访地点包含物业，选填：是');
         isValid = false;
         emptyFields.push('是否物业类集团');
     } else {
@@ -260,7 +260,7 @@ function validateForm() {
     // 验证是否企宽集团
     const isEnterpriseGroup = document.getElementById('isEnterpriseGroup').value;
     if (!isEnterpriseGroup) {
-        showError('isEnterpriseGroup', '请选择是否企宽集团');
+        showError('isEnterpriseGroup', '如果走访地点包含企业集团，选填：是');
         isValid = false;
         emptyFields.push('是否企宽集团');
     } else {
